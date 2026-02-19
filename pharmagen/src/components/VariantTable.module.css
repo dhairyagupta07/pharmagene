@@ -1,0 +1,41 @@
+.table {
+  border: 1px solid rgba(0, 180, 255, 0.12);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.4fr 1.4fr;
+  background: rgba(0, 180, 255, 0.05);
+  padding: 8px 14px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.4fr 1.4fr;
+  padding: 9px 14px;
+  border-top: 1px solid rgba(0, 180, 255, 0.06);
+  font-size: 11px;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.row:hover {
+  background: rgba(0, 180, 255, 0.03);
+}
+
+.rsid   { color: var(--accent); }
+.star   { color: var(--text-primary); font-weight: 500; }
+.effect { color: var(--text-secondary); }
+.locus  { color: var(--text-muted); font-size: 10px; }
+
+.empty {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 4px 0;
+}

@@ -1,0 +1,96 @@
+/* Header.module.css */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: transparent; /* Makes the header fully transparent */
+  /* Removed the backdrop-filter to let the mesh background shine through clearly */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Extremely subtle bottom edge */
+}
+
+.inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  /* Adds a subtle sharp corner accent to the left of the logo */
+  border-left: 3px solid #4f46e5;
+  padding-left: 12px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  stroke: #818cf8;
+  filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.4));
+  /* Removed the float animation to keep the rigid, terminal feel */
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+}
+
+.highlight {
+  color: transparent;
+  background: linear-gradient(135deg, #818cf8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-left: 2px;
+}
+
+.subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.badges {
+  display: flex;
+  gap: 12px;
+}
+
+/* Sharp, Cornered Badges */
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #c7d2fe;
+  background: rgba(79, 70, 229, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  /* Changed from 9999px (pill) to a sharp 2px corner */
+  border-radius: 2px; 
+  padding: 6px 12px;
+  box-shadow: 2px 2px 0px rgba(79, 70, 229, 0.2); /* Creates a rigid, blocky drop-shadow */
+  text-transform: uppercase; /* Adds to the technical terminal look */
+}
+
+@media (max-width: 600px) {
+  .badges {
+    display: none;
+  }
+  .inner {
+    padding: 16px 20px;
+  }
+}

@@ -1,0 +1,239 @@
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--risk-color, var(--border));
+  border-radius: 8px;
+  overflow: hidden;
+  animation: fadeSlideUp 0.35s ease forwards;
+}
+
+.errorCard {
+  background: rgba(255, 71, 87, 0.05);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  border-radius: 6px;
+  padding: 16px 20px;
+  font-size: 12px;
+  color: #ff6b7a;
+}
+
+/* ── Banner ───────────────────────────────────────────────────────────── */
+.banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--risk-color, var(--border));
+  background: var(--risk-bg, transparent);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.bannerLeft { flex-shrink: 0; }
+
+.riskLabel {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--risk-color, var(--text-primary));
+}
+
+.drugName {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  letter-spacing: 2px;
+}
+
+.metaGrid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.metaKey {
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+.metaVal {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────── */
+.section {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.sectionLabel {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.summaryText {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.recBlock {
+  margin: 0 24px 20px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--risk-color, var(--accent));
+  border-radius: 0 5px 5px 0;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.recText {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.65;
+}
+
+.altDrugs {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.altLabel { color: var(--text-muted); }
+
+/* ── Expand Button ────────────────────────────────────────────────────── */
+.expandBtn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--border-dim);
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 10px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.expandBtn:hover {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ── Details ──────────────────────────────────────────────────────────── */
+.details {
+  padding: 0 24px 24px;
+}
+
+.detailSection {
+  margin-top: 20px;
+}
+
+.detailTitle {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.detailText {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.chipList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.monitorChip {
+  font-size: 10px;
+  background: rgba(0, 180, 255, 0.08);
+  border: 1px solid rgba(0, 180, 255, 0.2);
+  border-radius: 3px;
+  padding: 3px 9px;
+  color: #7ab8d4;
+  letter-spacing: 1px;
+}
+
+/* ── Quality ──────────────────────────────────────────────────────────── */
+.quality {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: rgba(0, 212, 160, 0.05);
+  border: 1px solid rgba(0, 212, 160, 0.15);
+  border-radius: 5px;
+}
+
+.qualItem {
+  font-size: 11px;
+  color: #7ab89a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qualOk { color: var(--green); }
+
+/* ── Export ───────────────────────────────────────────────────────────── */
+.exportRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.btnSecondary {
+  background: transparent;
+  border: 1px solid rgba(0, 180, 255, 0.2);
+  border-radius: 4px;
+  color: #4a8aaa;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 7px 14px;
+  transition: all 0.15s;
+}
+
+.btnSecondary:hover {
+  border-color: var(--accent);
+  color: var(--text-secondary);
+}
+
+.btnPrimary {
+  background: rgba(0, 180, 255, 0.1);
+  border: 1px solid rgba(0, 180, 255, 0.3);
+  border-radius: 4px;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 7px 14px;
+  transition: all 0.15s;
+}
+
+.btnPrimary:hover {
+  background: rgba(0, 180, 255, 0.18);
+}
+
+.jsonView {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(0, 180, 255, 0.1);
+  border-radius: 5px;
+  padding: 16px;
+  font-size: 10px;
+  color: #4a8aaa;
+  overflow: auto;
+  max-height: 420px;
+  line-height: 1.55;
+}

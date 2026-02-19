@@ -1,0 +1,88 @@
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 20px;
+}
+
+.dropzone {
+  border: 2px dashed rgba(0, 180, 255, 0.25);
+  border-radius: 6px;
+  padding: 36px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: rgba(0, 180, 255, 0.02);
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.dropzone:hover,
+.dropzone:focus-visible {
+  border-color: rgba(0, 180, 255, 0.5);
+  background: rgba(0, 180, 255, 0.05);
+}
+
+.dropzone.active {
+  border-color: var(--accent);
+  background: rgba(0, 180, 255, 0.08);
+}
+
+.dropzone.loaded {
+  border-color: rgba(0, 212, 160, 0.4);
+  border-style: solid;
+  background: rgba(0, 212, 160, 0.04);
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.icon {
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.dropzone.loaded .icon {
+  color: var(--green);
+}
+
+.dropText {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.fileName {
+  font-size: 13px;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.formatNote {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-align: center;
+}
