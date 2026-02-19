@@ -9,37 +9,40 @@ export default async function handler(req, res) {
   const { prompt } = req.body;
 
   try {
-    // Now we securely call OpenAI from the server using process.env
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    // Securely call Gemini from the server using your environment variable
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` 
+        'x-goog-api-key': process.env.GEMINI_API_KEY // Gemini requires the key in this specific header
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini', // Moved model configuration to the backend
-        messages: [{
-          role: 'user',
-          content: prompt
+        contents: [{
+          parts: [{ text: prompt }]
         }],
-        temperature: 0.2, 
-        response_format: { type: "json_object" } 
+        generationConfig: {
+          temperature: 0.2, 
+          // Forces Gemini to output a valid JSON string
+          responseMimeType: "application/json" 
+        }
       }),
     });
 
     if (!response.ok) {
       const errorData = await response.text();
-      return res.status(response.status).json({ error: `OpenAI failed: ${errorData}` });
+      return res.status(response.status).json({ error: `Gemini API failed: ${errorData}` });
     }
 
     const data = await response.json();
-    const rawText = data.choices[0]?.message?.content || '{}';
+    
+    // Gemini nests its text response differently than OpenAI
+    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
     
     // Send the parsed JSON back to your frontend
     res.status(200).json(JSON.parse(rawText));
 
   } catch (error) {
-    console.error('Server-side OpenAI Error:', error);
+    console.error('Server-side Gemini Error:', error);
     res.status(500).json({ error: 'Failed to generate explanation' });
   }
 }
