@@ -1,6 +1,6 @@
 import { PHENOTYPE_LABELS } from '../constants/pgkb.js'
 
-const MODEL = 'gemini-2.5-flash'
+const MODEL = 'gpt-4o-mini'
 
 function buildBatchPrompt(patientId, analysesToRun) {
   // Combine all the local analysis data into one big text block
@@ -44,44 +44,47 @@ Structure the JSON exactly like this:
 }
 
 export async function generateClinicalExplanation(patientId, analysesToRun) {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  // Note: You might want to rename this environment variable in your .env file
+  // to VITE_OPENAI_API_KEY so it's less confusing later!
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
 
   if (!apiKey) {
-    console.error('Missing Gemini API Key!');
+    console.error('Missing OpenAI API Key!');
     return null;
   }
 
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
+  const API_URL = 'https://api.openai.com/v1/chat/completions';
 
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}` // OpenAI requires the key in the header
+      },
       body: JSON.stringify({
-        contents: [{
+        model: MODEL, // Make sure const MODEL = 'gpt-4o-mini' at the top of your file
+        messages: [{
           role: 'user',
-          parts: [{ text: buildBatchPrompt(patientId, analysesToRun) }]
+          content: buildBatchPrompt(patientId, analysesToRun)
         }],
-        generationConfig: {
-          temperature: 0.2, 
-          response_mime_type: "application/json" 
-        }
+        temperature: 0.2, 
+        response_format: { type: "json_object" } // OpenAI's way of enforcing JSON
       }),
     });
 
     if (!response.ok) {
       const errorData = await response.text();
-      throw new Error(`API failed: ${response.status} ${errorData}`);
+      throw new Error(`OpenAI API failed: ${response.status} ${errorData}`);
     }
 
     const data = await response.json();
-    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+    const rawText = data.choices[0]?.message?.content || '{}';
     
-    // Returns an object containing all drugs: { "CODEINE": {...}, "WARFARIN": {...} }
     return JSON.parse(rawText);
     
   } catch (error) {
-    console.error('Gemini Batch Generation Error:', error);
-    return null; // The app will automatically fall back to rule-based recommendations
+    console.error('OpenAI Batch Generation Error:', error);
+    return null; 
   }
 }
