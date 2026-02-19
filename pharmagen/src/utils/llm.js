@@ -1,7 +1,5 @@
 import { PHENOTYPE_LABELS } from '../constants/pgkb.js'
 
-const MODEL = 'gpt-4o-mini'
-
 function buildBatchPrompt(patientId, analysesToRun) {
   // Combine all the local analysis data into one big text block
   const patientDataSummary = analysesToRun.map(({ drug, analysis }) => {
@@ -44,47 +42,29 @@ Structure the JSON exactly like this:
 }
 
 export async function generateClinicalExplanation(patientId, analysesToRun) {
-  // Note: You might want to rename this environment variable in your .env file
-  // to VITE_OPENAI_API_KEY so it's less confusing later!
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
-
-  if (!apiKey) {
-    console.error('Missing OpenAI API Key!');
-    return null;
-  }
-
-  const API_URL = 'https://api.openai.com/v1/chat/completions';
+  const promptText = buildBatchPrompt(patientId, analysesToRun);
 
   try {
-    const response = await fetch(API_URL, {
+    // Call YOUR secure Vercel backend instead of OpenAI directly
+    const response = await fetch('/api/generate', {
       method: 'POST',
       headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}` // OpenAI requires the key in the header
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        model: MODEL, // Make sure const MODEL = 'gpt-4o-mini' at the top of your file
-        messages: [{
-          role: 'user',
-          content: buildBatchPrompt(patientId, analysesToRun)
-        }],
-        temperature: 0.2, 
-        response_format: { type: "json_object" } // OpenAI's way of enforcing JSON
-      }),
+      body: JSON.stringify({ prompt: promptText }),
     });
 
     if (!response.ok) {
       const errorData = await response.text();
-      throw new Error(`OpenAI API failed: ${response.status} ${errorData}`);
+      throw new Error(`Backend API failed: ${response.status} ${errorData}`);
     }
 
+    // The backend will now handle the OpenAI call and return the clean JSON
     const data = await response.json();
-    const rawText = data.choices[0]?.message?.content || '{}';
-    
-    return JSON.parse(rawText);
+    return data;
     
   } catch (error) {
-    console.error('OpenAI Batch Generation Error:', error);
+    console.error('Backend Request Error:', error);
     return null; 
   }
 }
