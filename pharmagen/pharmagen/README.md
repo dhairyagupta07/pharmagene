@@ -1,4 +1,4 @@
-# RxGENE-AI — Pharmacogenomic Risk Analysis
+# PharmaGen-AI — Clinical Pharmacogenomics
 
 AI-powered web app that analyzes patient VCF files and predicts drug-specific pharmacogenomic risks with LLM-generated clinical explanations.
 
@@ -8,10 +8,14 @@ AI-powered web app that analyzes patient VCF files and predicts drug-specific ph
 
 ```
 pharmagen/
+├── api/
+    └──generate.js
 ├── index.html
 ├── package.json
 ├── vite.config.js
 └── src/
+    ├── assets
+            └──dna3.png
     ├── main.jsx                    # React entry point
     ├── App.jsx                     # Root component & analysis orchestration
     ├── App.module.css
@@ -54,6 +58,12 @@ Open http://localhost:5173
 | SIMVASTATIN   | SLCO1B1  | Toxic (PM — myopathy risk)    |
 | AZATHIOPRINE  | TPMT     | Toxic (PM — myelosuppression) |
 | FLUOROURACIL  | DPYD     | Toxic (PM — severe toxicity)  |
+| OMEPRAZOLE    | DPYD     | Ineffective (RM/URM)          |
+| AMITRIPTYLINE | DPYD     | Toxic (PM), Ineffective (PM)  |
+| PHENYTOIN     | DPYD     | Toxic (PM), Adjust (IM)       |
+| ATORVASTATIN  | DPYD     | Toxic (PM), Adjust (IM)       |
+| MERCAPTOPURINE| DPYD     | Toxic (PM), Adjust (IM/URM)   |
+| CAPECITABINE  | DPYD     | Toxic (PM), Adjust (IM/URM)   |
 
 ---
 
@@ -116,5 +126,5 @@ Each drug analysis produces:
 
 - **React 18** + **Vite**
 - **CSS Modules** for scoped styling
-- **Anthropic Claude API** (`claude-sonnet-4-20250514`) for clinical explanations
+- **Anthropic Gemini API** (`gemini 2.5 flash`) for clinical explanations
 - No external UI libraries — fully custom components
